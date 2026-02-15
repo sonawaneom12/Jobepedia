@@ -24,12 +24,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("jobs").get()
-            .addOnSuccessListener { result ->
+        db.collection("jobs")
+            .addSnapshotListener { result, error ->
+
+                if (error != null) return@addSnapshotListener
 
                 val jobList = mutableListOf<Job>()
 
-                for (document in result) {
+                result?.forEach { document ->
 
                     val job = Job(
                         document.getString("title") ?: "",
@@ -55,6 +57,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     findNavController().navigate(R.id.jobDetailFragment, bundle)
                 }
             }
+
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
