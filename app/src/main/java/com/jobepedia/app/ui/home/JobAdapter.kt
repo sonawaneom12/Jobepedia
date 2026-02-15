@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.ItemJobBinding
+import com.jobepedia.app.utils.BookmarkManager
+
 
 class JobAdapter(
     private val jobs: List<Job>,
@@ -35,5 +37,11 @@ class JobAdapter(
          holder.itemView.setOnClickListener {
              onClick(job)
          }
+
+         holder.binding.saveBtn.setOnClickListener {
+             BookmarkManager.saveJob(holder.itemView.context, job)
+
+         }
+
      }
 }
