@@ -5,6 +5,11 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/jobDetailFragment"
+        android:name="com.jobepedia.app.ui.jobdetail.JobDetailFragment"
+        android:label="Job Details" />
+
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.jobepedia.app.ui.home.HomeFragment"
         android:label="Home" />

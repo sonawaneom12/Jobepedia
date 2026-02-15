@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jobepedia.app.R
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentHomeBinding
+import androidx.navigation.fragment.findNavController
+
+
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -25,6 +28,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = JobAdapter(dummyJobs)
+        binding.recyclerView.adapter = JobAdapter(dummyJobs) { job ->
+
+            val bundle = Bundle().apply {
+                putString("title", job.title)
+                putString("company", job.company)
+                putString("location", job.location)
+                putString("salary", job.salary)
+                putString("lastDate", job.lastDate)
+            }
+
+            findNavController().navigate(R.id.jobDetailFragment, bundle)
+        }
+
     }
 }
