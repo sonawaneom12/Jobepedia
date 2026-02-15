@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jobepedia.app.data.model.Category
 import com.jobepedia.app.databinding.ItemCategoryBinding
 
-class CategoryAdapter(private val categories: List<Category>) :
+class CategoryAdapter(
+    private val categories: List<Category>,
+    private val onClick: (Category) -> Unit
+) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(val binding: ItemCategoryBinding)
@@ -22,6 +25,12 @@ class CategoryAdapter(private val categories: List<Category>) :
     override fun getItemCount() = categories.size
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.binding.categoryName.text = categories[position].name
+        val category = categories[position]
+        holder.binding.categoryName.text = category.name
+
+        holder.itemView.setOnClickListener {
+            onClick(category)
+        }
     }
+
 }
