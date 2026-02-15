@@ -8,6 +8,7 @@ import com.jobepedia.app.R
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentHomeBinding
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 
@@ -21,25 +22,54 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         _binding = FragmentHomeBinding.bind(view)
 
-        val dummyJobs = listOf(
-            Job("Software Engineer", "Google", "Bangalore", "₹20 LPA", "30 Mar"),
-            Job("Android Developer", "Amazon", "Hyderabad", "₹15 LPA", "10 Apr"),
-            Job("Backend Developer", "Microsoft", "Remote", "₹18 LPA", "5 Apr")
-        )
+        val db = FirebaseFirestore.getInstance()
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = JobAdapter(dummyJobs) { job ->
+        db.collection("jobs").get()
+            .addOnSuccessListener { result ->
 
-            val bundle = Bundle().apply {
-                putString("title", job.title)
-                putString("company", job.company)
-                putString("location", job.location)
-                putString("salary", job.salary)
-                putString("lastDate", job.lastDate)
+                val jobList = mutableListOf<Job>()
+
+                for (document in result) {
+
+                    val job = Job(
+                        document.getString("title") ?: "",
+                        document.getString("company") ?: "",
+                        document.getString("location") ?: "",
+                        document.getString("salary") ?: "",
+                        document.getString("lastDate") ?: ""
+                    )
+
+                    jobList.add(job)
+                }
+
+                binding.recyclerView.adapter = JobAdapter(jobList) { job ->
+
+                    val bundle = Bundle().apply {
+                        putString("title", job.title)
+                        putString("company", job.company)
+                        putString("location", job.location)
+                        putString("salary", job.salary)
+                        putString("lastDate", job.lastDate)
+                    }
+
+                    findNavController().navigate(R.id.jobDetailFragment, bundle)
+                }
             }
 
-            findNavController().navigate(R.id.jobDetailFragment, bundle)
-        }
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        binding.recyclerView.adapter = JobAdapter(dummyJobs) { job ->
+//
+//            val bundle = Bundle().apply {
+//                putString("title", job.title)
+//                putString("company", job.company)
+//                putString("location", job.location)
+//                putString("salary", job.salary)
+//                putString("lastDate", job.lastDate)
+//            }
+//
+//            findNavController().navigate(R.id.jobDetailFragment, bundle)
+//        }
 
     }
 }

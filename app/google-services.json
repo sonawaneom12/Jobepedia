@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "487919340867",
+    "project_id": "jobepedia",
+    "storage_bucket": "jobepedia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487919340867:android:b72eccd0509075471c33f6",
+        "android_client_info": {
+          "package_name": "com.jobepedia.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4ySG-X5gP6jH3eNZqZaepS1bIMACEGlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
