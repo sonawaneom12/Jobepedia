@@ -84,4 +84,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("applyLink", applyLink)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
