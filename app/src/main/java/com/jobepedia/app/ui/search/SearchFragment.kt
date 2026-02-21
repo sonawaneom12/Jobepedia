@@ -43,11 +43,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .addOnSuccessListener { result ->
                 val jobs = result.documents.map {
                     Job(
-                        it.getString("title") ?: "",
-                        it.getString("company") ?: "",
-                        it.getString("location") ?: "",
-                        it.getString("salary") ?: "",
-                        it.getString("lastDate") ?: ""
+                        title = it.getString("title") ?: "",
+                        company = it.getString("company") ?: "",
+                        location = it.getString("location") ?: "",
+                        salary = it.getString("salary") ?: "",
+                        lastDate = it.getString("lastDate") ?: "",
+                        logoUrl = it.getString("logoUrl") ?: "",
+                        roleDetails = it.getString("roleDetails") ?: "",
+                        companyDetails = it.getString("companyDetails") ?: "",
+                        applyLink = it.getString("applyLink") ?: ""
                     )
                 }.filter {
                     it.title.lowercase().contains(queryText) ||
@@ -61,14 +65,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
 
                 binding.recyclerView.adapter = JobAdapter(jobs) { job ->
-                    val bundle = Bundle().apply {
-                        putString("title", job.title)
-                        putString("company", job.company)
-                        putString("location", job.location)
-                        putString("salary", job.salary)
-                        putString("lastDate", job.lastDate)
-                    }
-                    findNavController().navigate(R.id.jobDetailFragment, bundle)
+                    findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
                 }
             }
             .addOnFailureListener {
@@ -81,5 +78,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun Job.toBundle(): Bundle {
+        return Bundle().apply {
+            putString("title", title)
+            putString("company", company)
+            putString("location", location)
+            putString("salary", salary)
+            putString("lastDate", lastDate)
+            putString("logoUrl", logoUrl)
+            putString("roleDetails", roleDetails)
+            putString("companyDetails", companyDetails)
+            putString("applyLink", applyLink)
+        }
     }
 }

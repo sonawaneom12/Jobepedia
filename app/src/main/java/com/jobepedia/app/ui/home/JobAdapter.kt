@@ -3,17 +3,16 @@ package com.jobepedia.app.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jobepedia.app.R
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.ItemJobBinding
 import com.jobepedia.app.utils.BookmarkManager
 
-
 class JobAdapter(
     private val jobs: List<Job>,
     private val onClick: (Job) -> Unit
-) : RecyclerView.Adapter<JobAdapter.JobViewHolder>()
- {
+) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     inner class JobViewHolder(val binding: ItemJobBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -26,40 +25,45 @@ class JobAdapter(
 
     override fun getItemCount() = jobs.size
 
-     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
-         val job = jobs[position]
+    override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
+        val job = jobs[position]
 
-         holder.binding.jobTitle.text = job.title
-         holder.binding.company.text = job.company
-         holder.binding.location.text = job.location
-         holder.binding.salary.text = job.salary
-         holder.binding.lastDate.text = holder.itemView.context.getString(R.string.last_date, job.lastDate)
+        holder.binding.jobTitle.text = job.title
+        holder.binding.company.text = job.company
+        holder.binding.location.text = job.location
+        holder.binding.salary.text = job.salary
+        holder.binding.lastDate.text =
+            holder.itemView.context.getString(R.string.last_date, job.lastDate)
 
-         val context = holder.itemView.context
-         val isSaved = BookmarkManager.isSaved(context, job)
-         holder.binding.saveBtn.text = if (isSaved) {
-             context.getString(R.string.saved)
-         } else {
-             context.getString(R.string.save_job)
-         }
+        Glide.with(holder.itemView)
+            .load(job.logoUrl)
+            .placeholder(R.mipmap.ic_launcher)
+            .error(R.mipmap.ic_launcher)
+            .into(holder.binding.companyLogo)
 
-         holder.itemView.setOnClickListener {
-             onClick(job)
-         }
+        val context = holder.itemView.context
+        val isSaved = BookmarkManager.isSaved(context, job)
+        holder.binding.saveBtn.text = if (isSaved) {
+            context.getString(R.string.saved)
+        } else {
+            context.getString(R.string.save_job)
+        }
 
-         holder.binding.saveBtn.setOnClickListener {
-             if (BookmarkManager.isSaved(context, job)) {
-                 BookmarkManager.removeJob(context, job)
-             } else {
-                 BookmarkManager.saveJob(context, job)
-             }
+        holder.itemView.setOnClickListener {
+            onClick(job)
+        }
 
-             val updatedPosition = holder.bindingAdapterPosition
-             if (updatedPosition != RecyclerView.NO_POSITION) {
-                 notifyItemChanged(updatedPosition)
-             }
+        holder.binding.saveBtn.setOnClickListener {
+            if (BookmarkManager.isSaved(context, job)) {
+                BookmarkManager.removeJob(context, job)
+            } else {
+                BookmarkManager.saveJob(context, job)
+            }
 
-         }
-
-     }
+            val updatedPosition = holder.bindingAdapterPosition
+            if (updatedPosition != RecyclerView.NO_POSITION) {
+                notifyItemChanged(updatedPosition)
+            }
+        }
+    }
 }

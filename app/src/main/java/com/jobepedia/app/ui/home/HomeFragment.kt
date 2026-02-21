@@ -26,48 +26,62 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val selectedCategory = arguments?.getString("category")
 
         val db = FirebaseFirestore.getInstance()
-
         var query: com.google.firebase.firestore.Query = db.collection("jobs")
-
 
         if (selectedCategory != null) {
             query = query.whereEqualTo("category", selectedCategory)
         }
 
         query.addSnapshotListener { result, error ->
-
             if (error != null) {
-                Toast.makeText(requireContext(), error.localizedMessage ?: "Unable to load jobs", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    error.localizedMessage ?: "Unable to load jobs",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@addSnapshotListener
             }
 
             val jobList = mutableListOf<Job>()
 
             result?.forEach { document ->
-
                 val job = Job(
-                    document.getString("title") ?: "",
-                    document.getString("company") ?: "",
-                    document.getString("location") ?: "",
-                    document.getString("salary") ?: "",
-                    document.getString("lastDate") ?: ""
+                    title = document.getString("title") ?: "",
+                    company = document.getString("company") ?: "",
+                    location = document.getString("location") ?: "",
+                    salary = document.getString("salary") ?: "",
+                    lastDate = document.getString("lastDate") ?: "",
+                    logoUrl = document.getString("logoUrl") ?: "",
+                    roleDetails = document.getString("roleDetails") ?: "",
+                    companyDetails = document.getString("companyDetails") ?: "",
+                    applyLink = document.getString("applyLink") ?: ""
                 )
 
                 jobList.add(job)
             }
 
             binding.recyclerView.adapter = JobAdapter(jobList) { job ->
-
-                val bundle = Bundle().apply {
-                    putString("title", job.title)
-                    putString("company", job.company)
-                    putString("location", job.location)
-                    putString("salary", job.salary)
-                    putString("lastDate", job.lastDate)
-                }
-
-                findNavController().navigate(R.id.jobDetailFragment, bundle)
+                findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun Job.toBundle(): Bundle {
+        return Bundle().apply {
+            putString("title", title)
+            putString("company", company)
+            putString("location", location)
+            putString("salary", salary)
+            putString("lastDate", lastDate)
+            putString("logoUrl", logoUrl)
+            putString("roleDetails", roleDetails)
+            putString("companyDetails", companyDetails)
+            putString("applyLink", applyLink)
         }
     }
 

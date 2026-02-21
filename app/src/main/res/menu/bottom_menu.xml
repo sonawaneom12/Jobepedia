@@ -21,4 +21,9 @@
         android:title="Saved"
         android:icon="@android:drawable/ic_menu_save"/>
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_preferences"/>
+
 </menu>
