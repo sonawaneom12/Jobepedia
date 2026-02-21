@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/saveBtn"
-            android:text="Save Job"
+            android:text="@string/save_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

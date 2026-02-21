@@ -8,11 +8,10 @@ plugins {
 
 android {
     namespace = "com.jobepedia.app"
-    compileSdk {
-        version = release(36)
-        buildFeatures {
-            viewBinding = true
-        }
+    compileSdk = 36
+
+    buildFeatures {
+        viewBinding = true
     }
 
     defaultConfig {
@@ -49,46 +48,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    dependencies {
-
-        implementation("androidx.core:core-ktx:1.12.0")
-        implementation("androidx.appcompat:appcompat:1.6.1")
-
-        // Material UI
-        implementation("com.google.android.material:material:1.11.0")
-
-        // RecyclerView
-        implementation("androidx.recyclerview:recyclerview:1.3.2")
-
-        // Navigation
-        implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-        implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-
-        // ViewModel + LiveData
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-
-        // Firebase
-        implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-        implementation("com.google.firebase:firebase-firestore-ktx")
-        implementation("com.google.firebase:firebase-auth-ktx")
-
-        // Glide
-        implementation("com.github.bumptech.glide:glide:4.16.0")
-        kapt("com.github.bumptech.glide:compiler:4.16.0")
-
-        // Firebase BOM (VERY IMPORTANT — gives versions automatically)
-        implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-
-        // Firebase libraries (NO version here)
-        implementation("com.google.firebase:firebase-firestore-ktx")
-        implementation("com.google.firebase:firebase-auth-ktx")
-
-    }
-
-
 }

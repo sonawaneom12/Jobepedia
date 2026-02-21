@@ -38,4 +38,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         }
 
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
