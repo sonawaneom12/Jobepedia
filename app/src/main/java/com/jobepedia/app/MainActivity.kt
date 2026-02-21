@@ -25,12 +25,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.topAppBar)
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
 
         val navController = navHostFragment.navController
 
         binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.topAppBar.title = destination.label ?: getString(R.string.app_name)
+        }
 
         updateTopicSubscription()
         requestNotificationPermissionIfNeeded()

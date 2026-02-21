@@ -20,4 +20,9 @@
     <string name="job_alerts_channel_name">Job Alerts</string>
     <string name="job_alerts_channel_description">Notifications for newly posted jobs</string>
     <string name="invalid_apply_link">Apply link is not available</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_categories">Categories</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_saved">Saved</string>
+    <string name="nav_settings">Settings</string>
 </resources>
