@@ -13,12 +13,23 @@ object BookmarkManager {
 
         val updated = set.toMutableSet()
 
-        val jobString =
-            "${job.title}|${job.company}|${job.location}|${job.salary}|${job.lastDate}"
-
-        updated.add(jobString)
+        updated.add(serialize(job))
 
         prefs.edit().putStringSet("saved", updated).apply()
+    }
+
+    fun removeJob(context: Context, job: Job) {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val set = prefs.getStringSet("saved", mutableSetOf()) ?: mutableSetOf()
+        val updated = set.toMutableSet()
+        updated.remove(serialize(job))
+        prefs.edit().putStringSet("saved", updated).apply()
+    }
+
+    fun isSaved(context: Context, job: Job): Boolean {
+        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val saved = prefs.getStringSet("saved", emptySet()) ?: emptySet()
+        return serialize(job) in saved
     }
 
     fun getSavedJobs(context: Context): List<Job> {
@@ -34,6 +45,10 @@ object BookmarkManager {
                 null
             }
         }
+    }
+
+    private fun serialize(job: Job): String {
+        return "${job.title}|${job.company}|${job.location}|${job.salary}|${job.lastDate}"
     }
 
 }

@@ -1,5 +1,6 @@
 package com.jobepedia.app.ui.jobdetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,10 +17,38 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
         _binding = FragmentJobDetailBinding.bind(view)
 
-        binding.title.text = arguments?.getString("title")
-        binding.company.text = arguments?.getString("company")
-        binding.location.text = arguments?.getString("location")
-        binding.salary.text = arguments?.getString("salary")
-        binding.lastDate.text = arguments?.getString("lastDate")
+        val title = arguments?.getString("title").orEmpty()
+        val company = arguments?.getString("company").orEmpty()
+        val location = arguments?.getString("location").orEmpty()
+        val salary = arguments?.getString("salary").orEmpty()
+        val lastDate = arguments?.getString("lastDate").orEmpty()
+
+        binding.title.text = title
+        binding.company.text = company
+        binding.location.text = location
+        binding.salary.text = salary
+        binding.lastDate.text = getString(R.string.last_date, lastDate)
+
+        binding.shareButton.setOnClickListener {
+            val shareText = listOf(
+                title,
+                company,
+                location,
+                salary,
+                getString(R.string.last_date, lastDate)
+            ).joinToString("\n")
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, shareText)
+            }
+
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_job)))
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

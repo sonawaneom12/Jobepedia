@@ -3,6 +3,7 @@ package com.jobepedia.app.ui.bookmark
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jobepedia.app.R
 import com.jobepedia.app.databinding.FragmentBookmarkBinding
@@ -18,10 +19,34 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentBookmarkBinding.bind(view)
-
-        val savedJobs = BookmarkManager.getSavedJobs(requireContext())
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = JobAdapter(savedJobs) {}
+        loadBookmarks()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (_binding != null) {
+            loadBookmarks()
+        }
+    }
+
+    private fun loadBookmarks() {
+        val savedJobs = BookmarkManager.getSavedJobs(requireContext())
+        binding.recyclerView.adapter = JobAdapter(savedJobs) { job ->
+            val bundle = Bundle().apply {
+                putString("title", job.title)
+                putString("company", job.company)
+                putString("location", job.location)
+                putString("salary", job.salary)
+                putString("lastDate", job.lastDate)
+            }
+
+            findNavController().navigate(R.id.jobDetailFragment, bundle)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

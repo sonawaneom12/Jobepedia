@@ -2,6 +2,7 @@ package com.jobepedia.app.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +36,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         query.addSnapshotListener { result, error ->
 
-            if (error != null) return@addSnapshotListener
+            if (error != null) {
+                Toast.makeText(requireContext(), error.localizedMessage ?: "Unable to load jobs", Toast.LENGTH_SHORT).show()
+                return@addSnapshotListener
+            }
 
             val jobList = mutableListOf<Job>()
 
@@ -65,5 +69,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(R.id.jobDetailFragment, bundle)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
