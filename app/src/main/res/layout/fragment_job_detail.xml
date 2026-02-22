@@ -100,6 +100,42 @@
             android:id="@+id/jobHighlights"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/companyLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="end"
+            android:contentDescription="@string/company_details"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_green_dark" />
+
+        <TextView
+            android:id="@+id/lastDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,6 +146,12 @@
 
         <TextView
             android:id="@+id/companyDetails"
+            android:layout_marginTop="16dp"
+            android:text="@string/role_details"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/roleDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -122,6 +164,12 @@
 
         <TextView
             android:id="@+id/perksDetails"
+            android:layout_marginTop="16dp"
+            android:text="@string/company_details"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/companyDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -152,6 +200,15 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/report_job" />
         </LinearLayout>
+            android:layout_marginTop="16dp"
+            android:text="@string/apply_now" />
+
+        <Button
+            android:id="@+id/shareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/share_job" />
 
     </LinearLayout>
 
