@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         android:backgroundTint="?attr/colorSurface"
         android:elevation="4dp"
+        android:paddingHorizontal="8dp"
+        android:theme="@style/ThemeOverlay.Material3.ActionBar"
+        app:subtitle="@string/topbar_subtitle_default"
         android:theme="@style/ThemeOverlay.Material3.ActionBar"
         app:title="@string/app_name"
         app:titleCentered="false" />
