@@ -34,11 +34,22 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
         binding.title.text = title
         binding.company.text = company
-        binding.location.text = location
-        binding.salary.text = salary
-        binding.lastDate.text = getString(R.string.last_date, lastDate)
-        binding.roleDetails.text = roleDetails
-        binding.companyDetails.text = companyDetails
+        binding.locationChip.text = location.ifBlank { getString(R.string.location_not_available) }
+        binding.salaryChip.text = salary.ifBlank { getString(R.string.salary_not_disclosed) }
+        binding.lastDateChip.text = getString(R.string.last_date, lastDate.ifBlank { "TBA" })
+        binding.highlightText.text = getString(
+            R.string.job_header_highlight,
+            company.ifBlank { getString(R.string.company_details) }
+        )
+
+        binding.roleDetails.text = roleDetails.ifBlank { getString(R.string.role_details_fallback) }
+        binding.companyDetails.text = companyDetails.ifBlank { getString(R.string.company_details_fallback) }
+        binding.jobHighlights.text = getString(
+            R.string.job_highlights_template,
+            location.ifBlank { getString(R.string.location_not_available) },
+            salary.ifBlank { getString(R.string.salary_not_disclosed) }
+        )
+        binding.perksDetails.text = getString(R.string.perks_template)
 
         Glide.with(this)
             .load(logoUrl)
@@ -46,9 +57,7 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             .error(R.mipmap.ic_launcher)
             .into(binding.companyLogo)
 
-        binding.applyButton.setOnClickListener {
-            openApplyLink(applyLink)
-        }
+        binding.applyButton.setOnClickListener { openApplyLink(applyLink) }
 
         binding.shareButton.setOnClickListener {
             val shareText = listOf(
@@ -67,6 +76,10 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_job)))
         }
+
+        binding.reportButton.setOnClickListener {
+            Toast.makeText(requireContext(), R.string.report_received, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun openApplyLink(rawLink: String) {
@@ -82,9 +95,7 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
         }
 
         val uri = Uri.parse(normalizedLink)
-        val customTabsIntent = CustomTabsIntent.Builder()
-            .setShowTitle(true)
-            .build()
+        val customTabsIntent = CustomTabsIntent.Builder().setShowTitle(true).build()
 
         try {
             customTabsIntent.launchUrl(requireContext(), uri)

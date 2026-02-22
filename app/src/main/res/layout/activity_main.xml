@@ -14,7 +14,6 @@
         android:elevation="4dp"
         android:paddingHorizontal="8dp"
         android:theme="@style/ThemeOverlay.Material3.ActionBar"
-        app:logo="@mipmap/ic_launcher_round"
         app:subtitle="@string/topbar_subtitle_default"
         app:title="@string/app_name"
         app:titleCentered="false" />

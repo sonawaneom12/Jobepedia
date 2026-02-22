@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -72,7 +73,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.topAppBar.setNavigationOnClickListener {
-            navController.popBackStack()
+            if (!navController.popBackStack()) {
+                finish()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this) {
+            val destinationId = navController.currentDestination?.id
+            if (destinationId == R.id.homeFragment) {
+                finish()
+            } else {
+                binding.bottomNav.selectedItemId = R.id.homeFragment
+            }
         }
 
         updateTopicSubscription()

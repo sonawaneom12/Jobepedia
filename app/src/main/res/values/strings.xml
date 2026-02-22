@@ -34,4 +34,27 @@
     <string name="topbar_subtitle_saved">Your shortlisted jobs</string>
     <string name="topbar_subtitle_settings">Personalize your experience</string>
     <string name="topbar_subtitle_details">Job details</string>
+    <string name="job_highlights">Job Highlights</string>
+    <string name="perks_benefits">Perks &amp; Benefits</string>
+    <string name="report_job">Report</string>
+    <string name="report_received">Thanks, we will review this listing.</string>
+    <string name="location_not_available">Location not specified</string>
+    <string name="salary_not_disclosed">Salary not disclosed</string>
+    <string name="role_details_fallback">Detailed role information will be updated soon.</string>
+    <string name="company_details_fallback">Company profile will be updated soon.</string>
+    <string name="job_header_highlight">Actively hiring at %1$s</string>
+    <string name="job_highlights_template">• Location: %1$s
+• Compensation: %2$s
+• Hiring stage: Applications under review
+• Selection process: Screening + interview rounds</string>
+    <string name="perks_template">• Health insurance
+• Learning stipend
+• Flexible work support
+• Performance bonuses</string>
+    <string name="settings_suggestion_title">Suggested next settings to add</string>
+    <string name="settings_pref_category">• Preferred job category</string>
+    <string name="settings_pref_location">• Preferred location</string>
+    <string name="settings_min_salary">• Minimum expected salary filter</string>
+    <string name="settings_experience_level">• Experience level filter (Fresher/1-3/3+)</string>
+    <string name="settings_job_alert_frequency">• Job alert frequency (instant/daily/weekly)</string>
 </resources>
