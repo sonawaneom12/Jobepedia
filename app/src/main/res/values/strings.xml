@@ -64,4 +64,7 @@
     <string name="settings_job_alert_frequency_hint">Job alert frequency</string>
     <string name="save_preferences">Save Preferences</string>
     <string name="settings_saved">Preferences saved</string>
+    <string name="settings_subtitle">Manage job alerts and personal preferences</string>
+    <string name="settings_section_preferences">Job preferences</string>
+    <string name="settings_section_app">App preferences</string>
 </resources>
