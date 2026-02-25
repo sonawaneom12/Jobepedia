@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@string/settings_subtitle_short"
             android:text="@string/settings_subtitle"
             android:textColor="@android:color/darker_gray" />
 
@@ -148,6 +149,7 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/push_notifications" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

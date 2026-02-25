@@ -51,6 +51,7 @@
 • Learning stipend
 • Flexible work support
 • Performance bonuses</string>
+    <string name="settings_subtitle_short">Choose only the essentials for now</string>
     <string name="settings_suggestion_title">Suggested next settings to add</string>
     <string name="settings_pref_category">• Preferred job category</string>
     <string name="settings_pref_location">• Preferred location</string>
