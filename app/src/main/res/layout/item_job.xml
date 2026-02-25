@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="1dp"
-    app:strokeColor="#E9EEF6"
-    app:strokeWidth="1dp">
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="14dp">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,61 +26,50 @@
                     android:id="@+id/jobTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/company"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/text_secondary" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/text_secondary" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/salary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/brand_primary" />
+                    android:textColor="@android:color/holo_green_dark" />
 
                 <TextView
                     android:id="@+id/lastDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="#E24C4B" />
+                    android:textColor="@android:color/holo_red_dark" />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/companyLogo"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_marginStart="12dp"
-                android:background="@drawable/ic_launcher_background"
                 android:contentDescription="@string/company_details"
-                android:padding="4dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher" />
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/saveBtn"
-            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/save_job"
-            android:textColor="@color/brand_primary" />
+            android:text="@string/save_job" />
 
     </LinearLayout>
 
