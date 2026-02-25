@@ -50,6 +50,11 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             salary.ifBlank { getString(R.string.salary_not_disclosed) }
         )
         binding.perksDetails.text = getString(R.string.perks_template)
+        binding.location.text = location
+        binding.salary.text = salary
+        binding.lastDate.text = getString(R.string.last_date, lastDate)
+        binding.roleDetails.text = roleDetails
+        binding.companyDetails.text = companyDetails
 
         Glide.with(this)
             .load(logoUrl)
@@ -58,6 +63,13 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             .into(binding.companyLogo)
 
         binding.applyButton.setOnClickListener { openApplyLink(applyLink) }
+        binding.applyButton.setOnClickListener {
+            if (applyLink.isBlank()) {
+                Toast.makeText(requireContext(), R.string.invalid_apply_link, Toast.LENGTH_SHORT).show()
+            } else {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(applyLink)))
+            }
+        }
 
         binding.shareButton.setOnClickListener {
             val shareText = listOf(
