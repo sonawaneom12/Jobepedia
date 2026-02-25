@@ -72,6 +72,17 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(targetId, null, options)
                 }.isSuccess
             }
+            val options = navOptions {
+                launchSingleTop = true
+                restoreState = true
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+            }
+
+            runCatching {
+                navController.navigate(item.itemId, null, options)
+            }.isSuccess
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
