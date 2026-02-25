@@ -66,4 +66,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
