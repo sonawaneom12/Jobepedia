@@ -57,4 +57,11 @@
     <string name="settings_min_salary">• Minimum expected salary filter</string>
     <string name="settings_experience_level">• Experience level filter (Fresher/1-3/3+)</string>
     <string name="settings_job_alert_frequency">• Job alert frequency (instant/daily/weekly)</string>
+    <string name="settings_pref_category_hint">Preferred job category</string>
+    <string name="settings_pref_location_hint">Preferred location</string>
+    <string name="settings_min_salary_hint">Minimum expected salary (monthly)</string>
+    <string name="settings_experience_level_hint">Experience level</string>
+    <string name="settings_job_alert_frequency_hint">Job alert frequency</string>
+    <string name="save_preferences">Save Preferences</string>
+    <string name="settings_saved">Preferences saved</string>
 </resources>

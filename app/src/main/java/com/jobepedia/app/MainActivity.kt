@@ -42,6 +42,36 @@ class MainActivity : AppCompatActivity() {
         )
 
         binding.bottomNav.setOnItemSelectedListener { item ->
+            val targetId = item.itemId
+
+            if (targetId == R.id.homeFragment) {
+                val poppedToHome = navController.popBackStack(R.id.homeFragment, false)
+                if (!poppedToHome) {
+                    navController.navigate(
+                        R.id.homeFragment,
+                        null,
+                        navOptions {
+                            launchSingleTop = true
+                            popUpTo(navController.graph.startDestinationId) {
+                                inclusive = false
+                            }
+                        }
+                    )
+                }
+                true
+            } else {
+                val options = navOptions {
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                }
+
+                runCatching {
+                    navController.navigate(targetId, null, options)
+                }.isSuccess
+            }
             val options = navOptions {
                 launchSingleTop = true
                 restoreState = true
