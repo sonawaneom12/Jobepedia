@@ -50,5 +50,6 @@
 • Learning stipend
 • Flexible work support
 • Performance bonuses</string>
+    <string name="settings_subtitle_short">Choose only the essentials for now</string>
     <string name="settings_section_app">App preferences</string>
 </resources>
