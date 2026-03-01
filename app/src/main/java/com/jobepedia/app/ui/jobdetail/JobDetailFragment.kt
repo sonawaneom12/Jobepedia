@@ -31,6 +31,9 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
         val roleDetails = arguments?.getString("roleDetails").orEmpty()
         val companyDetails = arguments?.getString("companyDetails").orEmpty()
         val applyLink = arguments?.getString("applyLink").orEmpty()
+        val jobHighlights = arguments?.getString("jobHighlights").orEmpty()
+        val perksBenefits = arguments?.getString("perksBenefits").orEmpty()
+        val applicationProcess = arguments?.getString("applicationProcess").orEmpty()
 
         binding.title.text = title
         binding.company.text = company
@@ -51,13 +54,16 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
         binding.roleDetails.text = roleDetails.ifBlank { getString(R.string.role_details_fallback) }
         binding.companyDetails.text = companyDetails.ifBlank { getString(R.string.company_details_fallback) }
-        binding.jobHighlights.text = getString(
+        val fallbackJobHighlights = getString(
             R.string.job_highlights_template,
             location.ifBlank { getString(R.string.location_not_available) },
             salary.ifBlank { getString(R.string.salary_not_disclosed) }
         )
-        binding.perksDetails.text = getString(R.string.perks_template)
-        binding.applicationProcessDetails.text = getString(R.string.application_process_template)
+        binding.jobHighlights.text = jobHighlights.ifBlank { fallbackJobHighlights }
+        binding.perksDetails.text = perksBenefits.ifBlank { getString(R.string.perks_template) }
+        binding.applicationProcessDetails.text = applicationProcess.ifBlank {
+            getString(R.string.application_process_template)
+        }
 
         Glide.with(this)
             .load(logoUrl)

@@ -43,6 +43,9 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
                 putString("roleDetails", job.roleDetails)
                 putString("companyDetails", job.companyDetails)
                 putString("applyLink", job.applyLink)
+                putString("jobHighlights", job.jobHighlights)
+                putString("perksBenefits", job.perksBenefits)
+                putString("applicationProcess", job.applicationProcess)
             }
 
             findNavController().navigate(R.id.jobDetailFragment, bundle)

@@ -74,6 +74,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("roleDetails", roleDetails)
             putString("companyDetails", companyDetails)
             putString("applyLink", applyLink)
+            putString("jobHighlights", jobHighlights)
+            putString("perksBenefits", perksBenefits)
+            putString("applicationProcess", applicationProcess)
         }
     }
 }

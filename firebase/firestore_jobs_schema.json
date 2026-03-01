@@ -12,7 +12,10 @@
   "optional_fields": {
     "logoUrl": "string (https url)",
     "roleDetails": "string",
-    "companyDetails": "string"
+    "companyDetails": "string",
+    "jobHighlights": "string (multi-line bullets supported)",
+    "perksBenefits": "string (multi-line bullets supported)",
+    "applicationProcess": "string (step-by-step text)"
   },
   "example_document": {
     "title": "Android Developer",
@@ -24,6 +27,9 @@
     "applyLink": "https://company.example.com/jobs/android-developer",
     "logoUrl": "https://cdn.example.com/acme-logo.png",
     "roleDetails": "Build and maintain Android app features.",
-    "companyDetails": "Acme Tech is a product company focused on career-tech solutions."
+    "companyDetails": "Acme Tech is a product company focused on career-tech solutions.",
+    "jobHighlights": "• Location: Pune, India\n• Compensation: ₹8-12 LPA\n• Hiring stage: Applications under review",
+    "perksBenefits": "• Health insurance\n• Learning stipend\n• Flexible work support",
+    "applicationProcess": "1. Apply online\n2. Screening round\n3. Technical interview"
   }
 }

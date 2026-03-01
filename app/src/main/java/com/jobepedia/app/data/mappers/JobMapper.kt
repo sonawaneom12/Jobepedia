@@ -27,7 +27,10 @@ object JobMapper {
             logoUrl = document.getString("logoUrl").orEmpty(),
             roleDetails = roleDetails,
             companyDetails = companyDetails,
-            applyLink = document.getString("applyLink").orEmpty()
+            applyLink = document.getString("applyLink").orEmpty(),
+            jobHighlights = document.getString("jobHighlights").orEmpty(),
+            perksBenefits = document.getString("perksBenefits").orEmpty(),
+            applicationProcess = document.getString("applicationProcess").orEmpty()
         )
     }
 }

@@ -82,6 +82,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             putString("roleDetails", roleDetails)
             putString("companyDetails", companyDetails)
             putString("applyLink", applyLink)
+            putString("jobHighlights", jobHighlights)
+            putString("perksBenefits", perksBenefits)
+            putString("applicationProcess", applicationProcess)
         }
     }
 }

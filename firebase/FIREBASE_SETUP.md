@@ -18,8 +18,16 @@ Optional but recommended:
 - `logoUrl`
 - `roleDetails`
 - `companyDetails`
+- `jobHighlights`
+- `perksBenefits`
+- `applicationProcess`
 
 > The app now has fallback mapping for missing optional fields, but you should still populate them for best UX.
+>
+> The Job Detail screen reads these exact Firestore keys for rich sections:
+> - `jobHighlights`
+> - `perksBenefits`
+> - `applicationProcess`
 
 ## 2) Push notification topic
 The app subscribes users to `job_alerts` when notifications are enabled.
