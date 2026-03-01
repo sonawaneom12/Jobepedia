@@ -1,51 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
     <LinearLayout
-        android:padding="16dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/jobTitle"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/jobTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/salary"
-            android:textColor="@android:color/holo_green_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/lastDate"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/salary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:id="@+id/lastDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/companyLogo"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="12dp"
+                android:contentDescription="@string/company_details"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/saveBtn"
-            android:text="Save Job"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/save_job" />
 
     </LinearLayout>
 

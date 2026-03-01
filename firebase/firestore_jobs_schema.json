@@ -1,0 +1,29 @@
+{
+  "collection": "jobs",
+  "required_fields": {
+    "title": "string",
+    "company": "string",
+    "category": "string",
+    "location": "string",
+    "salary": "string",
+    "lastDate": "string",
+    "applyLink": "string"
+  },
+  "optional_fields": {
+    "logoUrl": "string (https url)",
+    "roleDetails": "string",
+    "companyDetails": "string"
+  },
+  "example_document": {
+    "title": "Android Developer",
+    "company": "Acme Tech",
+    "category": "Private Jobs",
+    "location": "Pune, India",
+    "salary": "₹8-12 LPA",
+    "lastDate": "2026-03-30",
+    "applyLink": "https://company.example.com/jobs/android-developer",
+    "logoUrl": "https://cdn.example.com/acme-logo.png",
+    "roleDetails": "Build and maintain Android app features.",
+    "companyDetails": "Acme Tech is a product company focused on career-tech solutions."
+  }
+}
