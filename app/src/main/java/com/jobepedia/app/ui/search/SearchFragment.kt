@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jobepedia.app.R
+import com.jobepedia.app.data.mappers.JobMapper
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentSearchBinding
 import com.jobepedia.app.ui.home.JobAdapter
@@ -42,6 +43,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .get()
             .addOnSuccessListener { result ->
                 val jobs = result.documents.map {
+                    JobMapper.fromDocument(it)
                     Job(
                         title = it.getString("title") ?: "",
                         company = it.getString("company") ?: "",
@@ -91,6 +93,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             putString("roleDetails", roleDetails)
             putString("companyDetails", companyDetails)
             putString("applyLink", applyLink)
+            putString("jobHighlights", jobHighlights)
+            putString("perksBenefits", perksBenefits)
+            putString("applicationProcess", applicationProcess)
         }
     }
 }

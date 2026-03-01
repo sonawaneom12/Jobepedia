@@ -48,6 +48,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             .get()
             .addOnSuccessListener { snapshot ->
                 val counts = snapshot.documents
+                    .map { it.getString("category").orEmpty().ifBlank { "Private Jobs" } }
                     .mapNotNull { it.getString("category") }
                     .groupingBy { it }
                     .eachCount()

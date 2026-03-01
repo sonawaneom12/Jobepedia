@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.jobepedia.app.R
+import com.jobepedia.app.data.mappers.JobMapper
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentHomeBinding
 
@@ -47,6 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             val jobList = result?.documents?.map { document ->
+                JobMapper.fromDocument(document)
                 Job(
             val jobList = mutableListOf<Job>()
 
@@ -97,6 +99,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("roleDetails", roleDetails)
             putString("companyDetails", companyDetails)
             putString("applyLink", applyLink)
+            putString("jobHighlights", jobHighlights)
+            putString("perksBenefits", perksBenefits)
+            putString("applicationProcess", applicationProcess)
         }
     }
 

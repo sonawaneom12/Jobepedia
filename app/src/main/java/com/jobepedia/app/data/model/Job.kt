@@ -9,5 +9,9 @@ data class Job(
     val logoUrl: String = "",
     val roleDetails: String = "",
     val companyDetails: String = "",
+    val applyLink: String = "",
+    val jobHighlights: String = "",
+    val perksBenefits: String = "",
+    val applicationProcess: String = ""
     val applyLink: String = ""
 )
