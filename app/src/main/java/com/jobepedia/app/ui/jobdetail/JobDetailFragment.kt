@@ -42,6 +42,13 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             company.ifBlank { getString(R.string.company_details) }
         )
 
+        binding.overviewDetails.text = listOf(
+            getString(R.string.employment_type),
+            getString(R.string.experience_required),
+            getString(R.string.open_positions),
+            getString(R.string.work_mode)
+        ).joinToString("\n")
+
         binding.roleDetails.text = roleDetails.ifBlank { getString(R.string.role_details_fallback) }
         binding.companyDetails.text = companyDetails.ifBlank { getString(R.string.company_details_fallback) }
         binding.jobHighlights.text = getString(
@@ -50,6 +57,7 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             salary.ifBlank { getString(R.string.salary_not_disclosed) }
         )
         binding.perksDetails.text = getString(R.string.perks_template)
+        binding.applicationProcessDetails.text = getString(R.string.application_process_template)
         binding.location.text = location
         binding.salary.text = salary
         binding.lastDate.text = getString(R.string.last_date, lastDate)
@@ -63,6 +71,17 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
             .into(binding.companyLogo)
 
         binding.applyButton.setOnClickListener { openApplyLink(applyLink) }
+
+        binding.shareButton.setOnClickListener {
+            val shareText = getString(
+                R.string.share_message_template,
+                title,
+                company,
+                location.ifBlank { getString(R.string.location_not_available) },
+                salary.ifBlank { getString(R.string.salary_not_disclosed) },
+                getString(R.string.last_date, lastDate.ifBlank { "TBA" }),
+                applyLink.ifBlank { getString(R.string.invalid_apply_link) }
+            )
         binding.applyButton.setOnClickListener {
             if (applyLink.isBlank()) {
                 Toast.makeText(requireContext(), R.string.invalid_apply_link, Toast.LENGTH_SHORT).show()

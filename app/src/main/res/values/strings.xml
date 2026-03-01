@@ -52,6 +52,25 @@
 • Flexible work support
 • Performance bonuses</string>
     <string name="settings_subtitle_short">Choose only the essentials for now</string>
+    <string name="settings_section_app">App preferences</string>
+
+    <string name="job_overview">Overview</string>
+    <string name="application_process">Application Process</string>
+    <string name="employment_type">Employment Type: Full-time</string>
+    <string name="experience_required">Experience: As per role requirement</string>
+    <string name="open_positions">Open Positions: 2+</string>
+    <string name="work_mode">Work Mode: On-site / Hybrid (company policy)</string>
+    <string name="application_process_template">1. Apply using the official link below.
+2. Shortlisted candidates may receive an email/call.
+3. Complete assessment/interview rounds as required.</string>
+    <string name="share_message_template">%1$s
+%2$s
+%3$s
+%4$s
+%5$s
+Apply here: %6$s
+
+Shared via Jobepedia - Find your next opportunity.</string>
     <string name="settings_suggestion_title">Suggested next settings to add</string>
     <string name="settings_pref_category">• Preferred job category</string>
     <string name="settings_pref_location">• Preferred location</string>

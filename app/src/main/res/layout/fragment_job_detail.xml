@@ -80,6 +80,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/job_overview"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/overviewDetails"
             android:layout_marginTop="18dp"
             android:text="@string/role_details"
             android:textStyle="bold" />
@@ -92,6 +98,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/role_details"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/roleDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/job_highlights"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobHighlights"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:layout_marginTop="14dp"
             android:text="@string/job_highlights"
             android:textStyle="bold" />
@@ -164,6 +192,18 @@
 
         <TextView
             android:id="@+id/perksDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/application_process"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/applicationProcessDetails"
             android:layout_marginTop="16dp"
             android:text="@string/company_details"
             android:textStyle="bold" />
