@@ -37,6 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         jobsListener = query.addSnapshotListener { result, error ->
             val safeBinding = _binding ?: return@addSnapshotListener
 
+        query.addSnapshotListener { result, error ->
             if (error != null) {
                 Toast.makeText(
                     requireContext(),
@@ -48,6 +49,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             val jobList = result?.documents?.map { document ->
                 JobMapper.fromDocument(document)
+                Job(
+            val jobList = mutableListOf<Job>()
+
+            result?.forEach { document ->
+                val job = Job(
+                    title = document.getString("title") ?: "",
+                    company = document.getString("company") ?: "",
+                    location = document.getString("location") ?: "",
+                    salary = document.getString("salary") ?: "",
+                    lastDate = document.getString("lastDate") ?: "",
+                    logoUrl = document.getString("logoUrl") ?: "",
+                    roleDetails = document.getString("roleDetails") ?: "",
+                    companyDetails = document.getString("companyDetails") ?: "",
+                    applyLink = document.getString("applyLink") ?: ""
+                )
             }.orEmpty()
 
             safeBinding.recyclerView.adapter = JobAdapter(jobList) { job ->
@@ -61,6 +77,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         jobsListener = null
         _binding = null
         super.onDestroyView()
+            binding.recyclerView.adapter = JobAdapter(jobList) { job ->
+                findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun Job.toBundle(): Bundle {
@@ -78,5 +103,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("perksBenefits", perksBenefits)
             putString("applicationProcess", applicationProcess)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
