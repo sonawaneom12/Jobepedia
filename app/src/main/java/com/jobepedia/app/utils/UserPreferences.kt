@@ -7,7 +7,6 @@ object UserPreferences {
     private const val PREF_NAME = "user_preferences"
     private const val KEY_DARK_MODE = "dark_mode"
     private const val KEY_PUSH_NOTIFICATIONS = "push_notifications"
-    private const val KEY_ONBOARDING_COMPLETED = "onboarding_completed"
     private const val KEY_PREFERRED_CATEGORY = "preferred_category"
     private const val KEY_PREFERRED_LOCATION = "preferred_location"
     private const val KEY_MINIMUM_SALARY = "minimum_salary"
@@ -37,19 +36,6 @@ object UserPreferences {
             .putBoolean(KEY_PUSH_NOTIFICATIONS, enabled)
             .apply()
     }
-
-    fun isOnboardingCompleted(context: Context): Boolean {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            .getBoolean(KEY_ONBOARDING_COMPLETED, false)
-    }
-
-    fun setOnboardingCompleted(context: Context, completed: Boolean) {
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            .edit()
-            .putBoolean(KEY_ONBOARDING_COMPLETED, completed)
-            .apply()
-    }
-}
 
     fun getPreferredCategory(context: Context): String {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

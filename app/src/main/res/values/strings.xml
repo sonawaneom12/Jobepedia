@@ -71,17 +71,6 @@
 Apply here: %6$s
 
 Shared via Jobepedia - Find your next opportunity.</string>
-    <string name="recently_viewed_jobs">Recently Viewed Jobs</string>
-    <string name="unable_to_load_jobs">Unable to load jobs</string>
-    <string name="skip">Skip</string>
-    <string name="next">Next</string>
-    <string name="get_started">Get Started</string>
-    <string name="onboarding_search_title">Search jobs easily</string>
-    <string name="onboarding_search_desc">Find relevant opportunities quickly using smart search.</string>
-    <string name="onboarding_alerts_title">Get job alerts</string>
-    <string name="onboarding_alerts_desc">Enable notifications to stay updated with fresh openings.</string>
-    <string name="onboarding_apply_title">Apply directly</string>
-    <string name="onboarding_apply_desc">Open the apply link instantly and complete your application.</string>
     <string name="settings_suggestion_title">Suggested next settings to add</string>
     <string name="settings_pref_category">• Preferred job category</string>
     <string name="settings_pref_location">• Preferred location</string>

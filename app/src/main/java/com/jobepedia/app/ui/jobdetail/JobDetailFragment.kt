@@ -8,14 +8,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.jobepedia.app.R
-import com.jobepedia.app.data.local.RecentlyViewedRepository
-import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentJobDetailBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
@@ -124,29 +119,6 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
 
         binding.reportButton.setOnClickListener {
             Toast.makeText(requireContext(), R.string.report_received, Toast.LENGTH_SHORT).show()
-        }
-
-        trackRecentlyViewed(
-            Job(
-                title = title,
-                company = company,
-                location = location,
-                salary = salary,
-                lastDate = lastDate,
-                logoUrl = logoUrl,
-                roleDetails = roleDetails,
-                companyDetails = companyDetails,
-                applyLink = applyLink,
-                jobHighlights = jobHighlights,
-                perksBenefits = perksBenefits,
-                applicationProcess = applicationProcess
-            )
-        )
-    }
-
-    private fun trackRecentlyViewed(job: Job) {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            RecentlyViewedRepository.trackViewed(requireContext(), job)
         }
     }
 
