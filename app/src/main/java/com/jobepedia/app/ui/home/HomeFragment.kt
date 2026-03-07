@@ -82,4 +82,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("applicationProcess", applicationProcess)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
