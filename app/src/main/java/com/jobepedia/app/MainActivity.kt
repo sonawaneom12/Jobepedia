@@ -15,6 +15,9 @@ import androidx.navigation.navOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jobepedia.app.databinding.ActivityMainBinding
 import com.jobepedia.app.ui.onboarding.OnboardingActivity
+import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
+import com.jobepedia.app.databinding.ActivityMainBinding
 import com.jobepedia.app.utils.UserPreferences
 
 class MainActivity : AppCompatActivity() {
@@ -79,6 +82,17 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(targetId, null, options)
                 }.isSuccess
             }
+            val options = navOptions {
+                launchSingleTop = true
+                restoreState = true
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+            }
+
+            runCatching {
+                navController.navigate(item.itemId, null, options)
+            }.isSuccess
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -112,6 +126,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.bottomNav.selectedItemId = R.id.homeFragment
             }
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.topAppBar.title = destination.label ?: getString(R.string.app_name)
         }
 
         updateTopicSubscription()

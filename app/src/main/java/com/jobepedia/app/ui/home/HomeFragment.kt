@@ -12,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.jobepedia.app.R
 import com.jobepedia.app.data.local.RecentlyViewedRepository
+import com.google.firebase.firestore.ListenerRegistration
+import com.jobepedia.app.R
 import com.jobepedia.app.data.mappers.JobMapper
 import com.jobepedia.app.data.model.Job
 import com.jobepedia.app.databinding.FragmentHomeBinding
@@ -25,6 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var jobsQuery: Query
+    private var jobsListener: ListenerRegistration? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,13 +85,63 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewLifecycleOwner.lifecycleScope.launch {
             val recentJobs = withContext(Dispatchers.IO) {
                 RecentlyViewedRepository.getRecent(requireContext())
+        val db = FirebaseFirestore.getInstance()
+        var query: com.google.firebase.firestore.Query = db.collection("jobs")
+
+        if (selectedCategory != null) {
+            query = query.whereEqualTo("category", selectedCategory)
+        }
+
+        jobsListener?.remove()
+        jobsListener = query.addSnapshotListener { result, error ->
+            val safeBinding = _binding ?: return@addSnapshotListener
+
+        query.addSnapshotListener { result, error ->
+            if (error != null) {
+                Toast.makeText(
+                    requireContext(),
+                    error.localizedMessage ?: "Unable to load jobs",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@addSnapshotListener
             }
+
+            val jobList = result?.documents?.map { document ->
+                JobMapper.fromDocument(document)
+                Job(
+            val jobList = mutableListOf<Job>()
+
+            result?.forEach { document ->
+                val job = Job(
+                    title = document.getString("title") ?: "",
+                    company = document.getString("company") ?: "",
+                    location = document.getString("location") ?: "",
+                    salary = document.getString("salary") ?: "",
+                    lastDate = document.getString("lastDate") ?: "",
+                    logoUrl = document.getString("logoUrl") ?: "",
+                    roleDetails = document.getString("roleDetails") ?: "",
+                    companyDetails = document.getString("companyDetails") ?: "",
+                    applyLink = document.getString("applyLink") ?: ""
+                )
+            }.orEmpty()
+
+            safeBinding.recyclerView.adapter = JobAdapter(jobList) { job ->
+                findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
+            }
+        }
+    }
 
             val safeBinding = _binding ?: return@launch
             val hasRecent = recentJobs.isNotEmpty()
             safeBinding.recentlyViewedTitle.isVisible = hasRecent
             safeBinding.recentlyViewedRecyclerView.isVisible = hasRecent
             safeBinding.recentlyViewedRecyclerView.adapter = RecentlyViewedAdapter(recentJobs) { job ->
+    override fun onDestroyView() {
+        jobsListener?.remove()
+        jobsListener = null
+        _binding = null
+        super.onDestroyView()
+            binding.recyclerView.adapter = JobAdapter(jobList) { job ->
                 findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
             }
         }
@@ -97,6 +150,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun Job.toBundle(): Bundle {
@@ -114,5 +169,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putString("perksBenefits", perksBenefits)
             putString("applicationProcess", applicationProcess)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
