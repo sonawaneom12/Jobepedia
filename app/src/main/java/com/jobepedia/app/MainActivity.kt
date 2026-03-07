@@ -1,6 +1,7 @@
 package com.jobepedia.app
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
+import com.google.firebase.messaging.FirebaseMessaging
+import com.jobepedia.app.databinding.ActivityMainBinding
+import com.jobepedia.app.ui.onboarding.OnboardingActivity
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jobepedia.app.databinding.ActivityMainBinding
@@ -23,6 +27,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         applyThemeFromPreference()
         super.onCreate(savedInstanceState)
+
+        if (!UserPreferences.isOnboardingCompleted(this)) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+            return
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
