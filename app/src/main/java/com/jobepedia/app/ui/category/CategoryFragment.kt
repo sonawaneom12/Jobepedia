@@ -49,7 +49,6 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             .addOnSuccessListener { snapshot ->
                 val counts = snapshot.documents
                     .map { it.getString("category").orEmpty().ifBlank { "Private Jobs" } }
-                    .mapNotNull { it.getString("category") }
                     .groupingBy { it }
                     .eachCount()
 
@@ -61,11 +60,6 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                     adapter.updateData(categories)
                 }
             }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onDestroyView() {

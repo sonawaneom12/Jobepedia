@@ -13,5 +13,4 @@ data class Job(
     val jobHighlights: String = "",
     val perksBenefits: String = "",
     val applicationProcess: String = ""
-    val applyLink: String = ""
 )

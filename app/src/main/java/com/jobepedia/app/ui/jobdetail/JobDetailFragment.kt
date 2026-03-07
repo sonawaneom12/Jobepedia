@@ -55,7 +55,6 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
         binding.roleDetails.text = roleDetails.ifBlank { getString(R.string.role_details_fallback) }
         binding.companyDetails.text = companyDetails.ifBlank { getString(R.string.company_details_fallback) }
         val fallbackJobHighlights = getString(
-        binding.jobHighlights.text = getString(
             R.string.job_highlights_template,
             location.ifBlank { getString(R.string.location_not_available) },
             salary.ifBlank { getString(R.string.salary_not_disclosed) }
@@ -65,13 +64,6 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
         binding.applicationProcessDetails.text = applicationProcess.ifBlank {
             getString(R.string.application_process_template)
         }
-        binding.perksDetails.text = getString(R.string.perks_template)
-        binding.applicationProcessDetails.text = getString(R.string.application_process_template)
-        binding.location.text = location
-        binding.salary.text = salary
-        binding.lastDate.text = getString(R.string.last_date, lastDate)
-        binding.roleDetails.text = roleDetails
-        binding.companyDetails.text = companyDetails
 
         Glide.with(this)
             .load(logoUrl)
@@ -91,23 +83,6 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
                 getString(R.string.last_date, lastDate.ifBlank { "TBA" }),
                 applyLink.ifBlank { getString(R.string.invalid_apply_link) }
             )
-        binding.applyButton.setOnClickListener {
-            if (applyLink.isBlank()) {
-                Toast.makeText(requireContext(), R.string.invalid_apply_link, Toast.LENGTH_SHORT).show()
-            } else {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(applyLink)))
-            }
-        }
-
-        binding.shareButton.setOnClickListener {
-            val shareText = listOf(
-                title,
-                company,
-                location,
-                salary,
-                getString(R.string.last_date, lastDate),
-                applyLink
-            ).joinToString("\n")
 
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
@@ -120,6 +95,7 @@ class JobDetailFragment : Fragment(R.layout.fragment_job_detail) {
         binding.reportButton.setOnClickListener {
             Toast.makeText(requireContext(), R.string.report_received, Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun openApplyLink(rawLink: String) {

@@ -44,17 +44,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .addOnSuccessListener { result ->
                 val jobs = result.documents.map {
                     JobMapper.fromDocument(it)
-                    Job(
-                        title = it.getString("title") ?: "",
-                        company = it.getString("company") ?: "",
-                        location = it.getString("location") ?: "",
-                        salary = it.getString("salary") ?: "",
-                        lastDate = it.getString("lastDate") ?: "",
-                        logoUrl = it.getString("logoUrl") ?: "",
-                        roleDetails = it.getString("roleDetails") ?: "",
-                        companyDetails = it.getString("companyDetails") ?: "",
-                        applyLink = it.getString("applyLink") ?: ""
-                    )
                 }.filter {
                     it.title.lowercase().contains(queryText) ||
                         it.company.lowercase().contains(queryText) ||

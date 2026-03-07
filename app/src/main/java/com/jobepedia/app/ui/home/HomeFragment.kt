@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.jobepedia.app.R
 import com.jobepedia.app.data.mappers.JobMapper
 import com.jobepedia.app.data.model.Job
@@ -17,7 +17,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var jobsListener: ListenerRegistration? = null
+    private lateinit var jobsQuery: Query
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,66 +26,44 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val selectedCategory = arguments?.getString("category")
-        val db = FirebaseFirestore.getInstance()
-        var query: com.google.firebase.firestore.Query = db.collection("jobs")
-
-        if (selectedCategory != null) {
-            query = query.whereEqualTo("category", selectedCategory)
+        jobsQuery = FirebaseFirestore.getInstance().collection("jobs").let { baseQuery ->
+            if (selectedCategory != null) {
+                baseQuery.whereEqualTo("category", selectedCategory)
+            } else {
+                baseQuery
+            }
         }
 
-        jobsListener?.remove()
-        jobsListener = query.addSnapshotListener { result, error ->
-            val safeBinding = _binding ?: return@addSnapshotListener
+        binding.swipeRefresh.setOnRefreshListener { loadJobs() }
 
-        query.addSnapshotListener { result, error ->
-            if (error != null) {
+        binding.swipeRefresh.isRefreshing = true
+        loadJobs()
+    }
+
+    private fun loadJobs() {
+        jobsQuery
+            .get()
+            .addOnSuccessListener { result ->
+                val safeBinding = _binding ?: return@addOnSuccessListener
+                val jobList = result.documents.map(JobMapper::fromDocument)
+                safeBinding.recyclerView.adapter = JobAdapter(jobList) { job ->
+                    findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
+                }
+                safeBinding.swipeRefresh.isRefreshing = false
+            }
+            .addOnFailureListener { error ->
+                _binding?.swipeRefresh?.isRefreshing = false
                 Toast.makeText(
                     requireContext(),
-                    error.localizedMessage ?: "Unable to load jobs",
+                    error.localizedMessage ?: getString(R.string.unable_to_load_jobs),
                     Toast.LENGTH_SHORT
                 ).show()
-                return@addSnapshotListener
             }
-
-            val jobList = result?.documents?.map { document ->
-                JobMapper.fromDocument(document)
-                Job(
-            val jobList = mutableListOf<Job>()
-
-            result?.forEach { document ->
-                val job = Job(
-                    title = document.getString("title") ?: "",
-                    company = document.getString("company") ?: "",
-                    location = document.getString("location") ?: "",
-                    salary = document.getString("salary") ?: "",
-                    lastDate = document.getString("lastDate") ?: "",
-                    logoUrl = document.getString("logoUrl") ?: "",
-                    roleDetails = document.getString("roleDetails") ?: "",
-                    companyDetails = document.getString("companyDetails") ?: "",
-                    applyLink = document.getString("applyLink") ?: ""
-                )
-            }.orEmpty()
-
-            safeBinding.recyclerView.adapter = JobAdapter(jobList) { job ->
-                findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
-            }
-        }
     }
 
     override fun onDestroyView() {
-        jobsListener?.remove()
-        jobsListener = null
         _binding = null
         super.onDestroyView()
-            binding.recyclerView.adapter = JobAdapter(jobList) { job ->
-                findNavController().navigate(R.id.jobDetailFragment, job.toBundle())
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun Job.toBundle(): Bundle {
