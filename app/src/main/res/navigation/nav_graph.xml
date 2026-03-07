@@ -29,4 +29,9 @@
         android:name="com.jobepedia.app.ui.bookmark.BookmarkFragment"
         android:label="Bookmarks" />
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jobepedia.app.ui.settings.SettingsFragment"
+        android:label="Settings" />
+
 </navigation>
